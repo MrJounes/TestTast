@@ -27,10 +27,16 @@ final class MainPresenter {
 extension MainPresenter: MainPresenterProtocol {
     
     func fetchDrinks() {
-        apiService.fetchCoctails { result in
+        apiService.fetchCoctails { [weak self] result in
             switch result {
             case .success(let response):
-                print(response.drinks.count)
+                let drinks = response.drinks.map {
+                    DrinkModel(
+                        title: $0.name,
+                        isSelected: false
+                    )
+                }
+                self?.viewController?.display(drinks)
             case .failure(let error):
                 print(error.localizedDescription)
             }
