@@ -153,6 +153,12 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UITextFieldDelegate
 extension MainViewController: UITextFieldDelegate {
     
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else {
+            return
+        }
+        presenter?.selectDrink(by: text)
+    }
 }
 
 // MARK: - Private methods
