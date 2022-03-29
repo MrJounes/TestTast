@@ -9,6 +9,7 @@
 protocol MainPresenterProtocol: AnyObject {
     func fetchDrinks()
     func selectDrink(by index: Int)
+    func selectDrink(by text: String)
 }
 
 // MARK: - MainPresenter
@@ -47,6 +48,21 @@ extension MainPresenter: MainPresenterProtocol {
     
     func selectDrink(by index: Int) {
         drinks[index].isSelected.toggle()
+        viewController?.display(drinks)
+    }
+    
+    func selectDrink(by text: String) {
+        let word = text + " "
+        drinks.enumerated().forEach { (index, drink) in
+            let isEmpty = text.isEmpty
+            let isContains = drink.title.contains(word)
+            
+            if isEmpty || !isContains {
+                drinks[index].isSelected = false
+            } else {
+                drinks[index].isSelected = true
+            }
+        }
         viewController?.display(drinks)
     }
 }
