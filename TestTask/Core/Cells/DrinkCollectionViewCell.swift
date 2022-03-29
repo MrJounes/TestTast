@@ -24,6 +24,11 @@ final class DrinkCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private lazy var gradientView: GradientView = {
+        let gradient = GradientView()
+        return gradient
+    }()
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -46,6 +51,7 @@ extension DrinkCollectionViewCell {
     
     func setupCell(with model: DrinkModel) {
         titleLabel.text = model.title
+        gradientView.isHidden = !model.isSelected
     }
 }
 
@@ -59,11 +65,16 @@ private extension DrinkCollectionViewCell {
     
     func addSubviews() {
         addSubview(containerView)
+        containerView.addSubview(gradientView)
         containerView.addSubview(titleLabel)
     }
     
     func setupConstraints() {
         containerView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        gradientView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         

@@ -8,5 +8,5 @@
 // MARK: - DrinkModel
 struct DrinkModel {
     let title: String
-    let isSelected: Bool
+    var isSelected: Bool
 }
